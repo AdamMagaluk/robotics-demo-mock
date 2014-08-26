@@ -18,7 +18,7 @@ HumiditySensor.prototype.init = function(config) {
     .state('on')
     .monitor('humidity');
 
-  this._humidityEmitter.on('humidity', function(data){
-    self.humidity = Number(data);
-  });
+  setInterval(function(){
+    self.humidity = Math.round(Math.random() * 500);
+  }, 100);
 };

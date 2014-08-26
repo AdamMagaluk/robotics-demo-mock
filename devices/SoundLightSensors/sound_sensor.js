@@ -18,7 +18,7 @@ SoundSensor.prototype.init = function(config) {
     .state('on')
     .monitor('level');
 
-  this._soundEmitter.on('sound', function(data){
-    self.level = Number(data);
-  });
+  setInterval(function(data){
+    self.level = Math.round(Math.random() * 500);
+  }, 150);
 };

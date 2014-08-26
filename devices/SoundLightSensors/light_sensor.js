@@ -4,7 +4,6 @@ var Device = require('zetta').Device;
 var LightSensor = module.exports = function(emitter, ip) {
   this.ipAddress = ip;
   this.luminosity = null;
-  this._lightEmitter = emitter;
   Device.call(this);
 };
 util.inherits(LightSensor, Device);
@@ -18,7 +17,7 @@ LightSensor.prototype.init = function(config) {
     .state('on')
     .monitor('luminosity');
 
-  this._lightEmitter.on('light', function(data){
-    self.luminosity = Number(data);
-  });
+  setInterval(function(data){
+    self.luminosity = Math.round(Math.random() * 5000);
+  }, 150);
 };

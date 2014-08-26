@@ -18,7 +18,7 @@ Barometer.prototype.init = function(config) {
     .state('on')
     .monitor('pressure');
 
-  this._pressureEmitter.on('pressure', function(data){
-    self.pressure = Number(data);
-  });
+  setInterval(function(){
+    self.pressure = Math.round(Math.random() * 10000);
+  }, 100);
 };

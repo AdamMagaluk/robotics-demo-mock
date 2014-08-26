@@ -18,8 +18,8 @@ TemperatureSensor.prototype.init = function(config) {
     .state('on')
     .monitor('temperature');
 
-  this._tempEmitter.on('temperature', function(data){
-    self.temperature = Number(data);
-  });
+  setInterval(function(){
+    self.temperature = Math.round(Math.random() * 80);
+  }, 100);
 };
 

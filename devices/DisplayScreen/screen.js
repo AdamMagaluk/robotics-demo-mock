@@ -2,7 +2,6 @@ var util = require('util');
 var Device = require('zetta').Device;
 
 var Screen = module.exports = function(serialPort) {
-  this._serialPort = serialPort;
   this.message = null;
   Device.call(this);
 };
@@ -19,6 +18,6 @@ Screen.prototype.init = function(config) {
 };
 
 Screen.prototype.change = function(text, cb) {
-  this._serialPort.write(text + '\n', cb);
   this.message = text;
+  cb();
 };

@@ -1,11 +1,7 @@
 var util = require('util');
 var Device = require('zetta').Device;
-var Robot = require('./robot_lib');
 
-var RobotArm = module.exports = function(socket, port, ip) {
-  this._socket = socket;
-  this._port = port;
-  this._robot = new Robot(socket, port, ip);
+var RobotArm = module.exports = function(ip) {
   this.ip = ip;
   Device.call(this);
 };
@@ -38,7 +34,7 @@ RobotArm.prototype.standby = function(cb) {
 RobotArm.prototype.moveClaw = function(direction, cb) {
   this.state = 'moving-claw';
   var self = this;
-  this._robot.moveGripper(direction, function() {
+  setImmediate(function() {
     self.call('standby', function(){});
     cb();
   });
@@ -47,7 +43,7 @@ RobotArm.prototype.moveClaw = function(direction, cb) {
 RobotArm.prototype.moveElbow = function(direction, cb) {
   this.state = 'moving-elbow';
   var self = this;
-  this._robot.moveElbow(direction, function() {
+  setImmediate(function() {
     self.call('standby', function(){});
     cb();
   });
@@ -56,7 +52,7 @@ RobotArm.prototype.moveElbow = function(direction, cb) {
 RobotArm.prototype.moveShoulder = function(direction, cb) {
   this.state = 'moving-shoulder';
   var self = this;
-  this._robot.moveShoulder(direction, function() {
+  setImmediate(function() {
     self.call('standby', function(){});
     cb();
   });
@@ -65,7 +61,7 @@ RobotArm.prototype.moveShoulder = function(direction, cb) {
 RobotArm.prototype.pivot = function(direction, cb) {
   this.state = 'pivoting';
   var self = this;
-  this._robot.pivot(direction, function() {
+  setImmediate(function() {
     self.call('standby', function(){});
     cb();
   });

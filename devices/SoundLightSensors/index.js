@@ -1,27 +1,19 @@
 var util = require('util');
 var Scout = require('zetta').Scout;
-var DeviceServer = require('../lib/device_server');
 var SoundSensor = require('./sound_sensor');
 var LightSensor = require('./light_sensor');
 
 var SoundLightSensors = module.exports = function(){
+  this.udpServer = {};
   Scout.call(this);
-  this.udpServer = new DeviceServer(5000);
-  this.udpServer.name = 'SoundLightSensors';
 }
 util.inherits(SoundLightSensors, Scout);
 
 SoundLightSensors.prototype.init = function(next){
   var self = this;
-  this.udpServer.start();
-  this.udpServer.on('stream', function(stream, rinfo){
-    if(stream === 'light') {
-      self.initDevice('light', LightSensor, rinfo);
-    } else if(stream === 'sound') {
-      self.initDevice('sound', SoundSensor, rinfo);
-    }
-  });
-  
+  var rinfo = { address: 'sound.light.local'};
+  self.initDevice('light', LightSensor, rinfo);
+  self.initDevice('sound', SoundSensor, rinfo);
   next();
 };
 

@@ -17,5 +17,5 @@ System.prototype.init = function(config) {
 };
 
 System.prototype.reboot = function(cb) {
-  exec('reboot', cb);
+  cb();
 };
